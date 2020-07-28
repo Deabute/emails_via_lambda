@@ -1,6 +1,6 @@
 {
   "name": "emails_via_lambda",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "system for receiving emails via lambda",
   "main": "email.js",
   "scripts": {
