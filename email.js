@@ -15,27 +15,8 @@ const slack = {
     req.write(postData)
     req.end()
   },
-  dm: function (event, context, callback) {
-    const response = {
-      statusCode: 200,
-      headers: {
-        'Content-type': 'application/json',
-      }
-    }
-    try {
-      event.body = JSON.parse(event.body)
-    } catch (error) {
-      console.log(error)
-      response.statusCode = 400
-    }
-    if (response.statusCode === 200) {
-      console.log("event text:" + event.body.text)
-      slack.send(event.body.text)
-    }
-    callback(null, response)
-  },
   dm_step: function (data) {
-    slack.send("got an email")
+    slack.send(data.emailData)
     return Promise.resolve(data)
   }
 };
