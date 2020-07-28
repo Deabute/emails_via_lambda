@@ -16,10 +16,10 @@ const slack = {
     req.end()
   },
   dm_step: function (data) {
-    const match = data.emailData.match(/^((?:.+\r?\n)*)(\r?\n(?:.*\s+)*)/m);
-    const header = match && match[1] ? match[1] : data.emailData;
-    const body = match && match[2] ? match[2] : '';
-    const from = ""
+    let match = data.emailData.match(/^((?:.+\r?\n)*)(\r?\n(?:.*\s+)*)/m);
+    let header = match && match[1] ? match[1] : data.emailData;
+    let body = match && match[2] ? match[2] : '';
+    let from = ""
     if (!/^reply-to:[\t ]?/mi.test(header)) {
       match = header.match(/^from:[\t ]?(.*(?:\r?\n\s+.*)*\r?\n)/mi);
       from = match && match[1] ? match[1] : '';
