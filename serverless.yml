@@ -1,0 +1,26 @@
+service: ${env:SERVICE_NAME}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+  environment:
+      DM_WH: ${env:DM_WH}
+  timeout: 10
+  memorySize: 256
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ses:sendEmail"
+        - "ses:sendRawEmail"
+      Resource:
+        "*"
+    - Effect: "Allow"
+      Action:
+        - "s3:GetObject"
+        - "s3:PutObject"
+      Resource:
+        "arn:aws:s3:::email.deabute/*"
+functions:
+    email_forward:
+        handler: email.forward

@@ -1,0 +1,14 @@
+{
+  "name": "emails_via_lambda",
+  "version": "1.0.2",
+  "description": "system for receiving emails via lambda",
+  "main": "email.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paul Beaudet",
+  "license": "MIT",
+  "dependencies": {
+    "aws-lambda-ses-forwarder": "^5.0.0"
+  }
+}

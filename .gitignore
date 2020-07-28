@@ -1,0 +1,4 @@
+*.sh
+/node_modules
+email_config.json
+/.serverless
