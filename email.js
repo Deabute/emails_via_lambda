@@ -16,7 +16,16 @@ const slack = {
     req.end()
   },
   dm_step: function (data) {
-    slack.send(data.emailData)
+    const match = data.emailData.match(/^((?:.+\r?\n)*)(\r?\n(?:.*\s+)*)/m);
+    const header = match && match[1] ? match[1] : data.emailData;
+    const body = match && match[2] ? match[2] : '';
+    const from = ""
+    if (!/^reply-to:[\t ]?/mi.test(header)) {
+      match = header.match(/^from:[\t ]?(.*(?:\r?\n\s+.*)*\r?\n)/mi);
+      from = match && match[1] ? match[1] : '';
+    }
+
+    slack.send(body + "\n from " + from)
     return Promise.resolve(data)
   }
 };
@@ -28,9 +37,9 @@ exports.forward = function (event, context, callback) {
       LambdaForwarder.parseEvent,
       LambdaForwarder.transformRecipients,
       LambdaForwarder.fetchMessage,
+      slack.dm_step,
       LambdaForwarder.processMessage,
       LambdaForwarder.sendMessage,
-      slack.dm_step,
     ]
   }
   LambdaForwarder.handler(event, context, callback, overrides)
