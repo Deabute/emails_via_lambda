@@ -25,7 +25,7 @@ const slack = {
       from = match && match[1] ? match[1] : '';
     }
 
-    slack.send("From " + from + "```" + body + "```")
+    slack.send("Received a new email from " + from)
     data.log({
       level: "info",
       message: "Got message from " + from,
