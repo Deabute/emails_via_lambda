@@ -25,7 +25,11 @@ const slack = {
       from = match && match[1] ? match[1] : '';
     }
 
-    slack.send(body + "\n from " + from)
+    slack.send("From " + from + "```" + body + "```")
+    data.log({
+      level: "info",
+      message: "Got message from " + from,
+    })
     return Promise.resolve(data)
   }
 };
