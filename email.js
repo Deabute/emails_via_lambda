@@ -1,6 +1,9 @@
+// email.js Copyright 2020 Paul Beaudet ~ MIT License
+
 const LambdaForwarder = require('aws-lambda-ses-forwarder')
 const { request } = require("https")
 const email_config = require('./email_config.json')
+const twilio_client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_TOKEN)
 
 const slack = {
   send: function (msg, webhook) {
@@ -24,8 +27,20 @@ const slack = {
       match = header.match(/^from:[\t ]?(.*(?:\r?\n\s+.*)*\r?\n)/mi);
       from = match && match[1] ? match[1] : '';
     }
-
-    slack.send("Received a new email from " + from)
+    const messageToSend = `Received a new email from ${from}`
+    // slack.send(messageToSend)
+    twilio_client.messages
+      .create({
+        body: messageToSend,
+        from: process.env.TWILIO_NUMBER,
+        to: process.env.RECIPIENT_NUMBER
+      })
+      .then(message => {
+        data.log({
+          level: "info",
+          message: `successfully sent message ${message.sid}`
+        })
+      })
     data.log({
       level: "info",
       message: "Got message from " + from,

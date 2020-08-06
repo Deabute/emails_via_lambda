@@ -1,5 +1,5 @@
-This the way email is set up on deabute.com
+This a way receive emails in a custom way using aws-lambda-ses-forwarder
 
-A step has been add to also send messages to slack
+A custom step has been add to also send notification of a message to Slack or Twilio
 
 Copyright 2020 Paul Beaudet MIT Licence 

@@ -6,6 +6,10 @@ provider:
   region: us-east-1
   environment:
       DM_WH: ${env:DM_WH}
+      TWILIO_SID: ${env:TWILIO_SID}
+      TWILIO_TOKEN: ${env:TWILIO_TOKEN}
+      TWILIO_NUMBER: ${env:TWILIO_NUMBER}
+      RECIPIENT_NUMBER: ${env:RECIPIENT_NUMBER}
   timeout: 10
   memorySize: 256
   iamRoleStatements:
